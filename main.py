@@ -12,7 +12,7 @@ def MenuPrincipal():
 def MenuAdicionarPassword():
     print("----Adicionar Password----")
     site = input("Digite o nome do site: ")
-    username = input("Digite o nome de usuário: ")
+    username = input("Digite o nome de utilizador: ")
     password = input("Digite a password: ")
     return site, username, password
 
@@ -22,7 +22,7 @@ def MenuVerPasswords():
     return site
 
 def MenuSair():
-    print("Saindo do programa. Até logo!")
+    print("A sair do programa. Até logo!")
     exit()
 
 def MenuErro():
