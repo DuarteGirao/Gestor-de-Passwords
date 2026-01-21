@@ -36,7 +36,8 @@ if __name__ == "__main__":
             site, username, password = MenuAdicionarPassword()
             storage.pytojson(site, username, ph.hash(password))
         elif escolha == "2":
-            MenuVerPasswords()
+            site = MenuVerPasswords()
+            storage.verPasswords(site)
         elif escolha == "3":
             MenuSair()
         else:
