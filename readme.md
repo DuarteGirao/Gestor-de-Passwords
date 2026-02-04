@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/duartegirao/Gestor-de-Passwords/main/imagem.png" width="400">
+</p>
+
 # 🔐 Gestor de Passwords
 
 Um gestor de passwords seguro com interface web moderna, desenvolvido com Flask e MariaDB.
