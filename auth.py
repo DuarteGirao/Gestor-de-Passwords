@@ -1,7 +1,11 @@
 from cryptography.fernet import Fernet
-import chave
+import os
+from dotenv import load_dotenv
 
-cipher = Fernet(chave.chave)
+load_dotenv()
+
+chave = os.getenv('chave').encode()
+cipher = Fernet(chave)
 
 def cifrar_password(password: str) -> str:
     """Cifra a password para guardar na BD"""

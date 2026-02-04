@@ -1,5 +1,8 @@
 import os
-import auth, storage, chave
+from dotenv import load_dotenv
+import auth, storage
+
+load_dotenv()
 
 clear = lambda: os.system('cls') 
 
@@ -24,7 +27,7 @@ def MenuVerPasswords():
     clear()
     print("----Ver Passwords----")
     master_password = input("Digite a password mestra: ")
-    if master_password != chave.master_password:
+    if master_password != os.getenv('master_password'):
         print("Password mestra incorreta!")
         input("\nPressione Enter para continuar...")
         return None

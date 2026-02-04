@@ -1,4 +1,5 @@
-/chave.py
+/.env
+.venv/
 __pycache__/
 *.pyc
 *.pyo
