@@ -1,7 +1,10 @@
-import chave
-import auth, storage
+import os
+import auth, storage, chave
+
+clear = lambda: os.system('cls') 
 
 def MenuPrincipal():
+    clear()
     print("----Menu Principal----")
     print("Opção 1: Adcionar Password")
     print("Opção 2: Ver Passwords")
@@ -10,6 +13,7 @@ def MenuPrincipal():
     return escolha
 
 def MenuAdicionarPassword():
+    clear()
     print("----Adicionar Password----")
     site = input("Digite o nome do site: ")
     username = input("Digite o nome de utilizador: ")
@@ -17,12 +21,14 @@ def MenuAdicionarPassword():
     return site, username, password
 
 def MenuVerPasswords():
+    clear()
     print("----Ver Passwords----")
     master_password = input("Digite a password mestra: ")
     if master_password != chave.master_password:
         print("Password mestra incorreta!")
+        input("\nPressione Enter para continuar...")
         return None
-
+    clear()
     site = input("Digite o nome do site para ver as passwords: ")
     return site
 
@@ -44,6 +50,7 @@ if __name__ == "__main__":
             site = MenuVerPasswords()
             if site is not None:
                 storage.verPasswords(site)
+                input("\nPressione Enter para continuar...")
         elif escolha == "3":
             MenuSair()
         else:
