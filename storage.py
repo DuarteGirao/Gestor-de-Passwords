@@ -1,34 +1,40 @@
-import json
+import mariadb
+import sys
 
-def pytojson(site, username, password):
-    data = {
-        "site": site,
-        "username": username,
-        "password": password
-    }
+try:
+    conn = mariadb.connect(
+        user="root",
+        password="",
+        host="127.0.0.1",
+        port=3306,
+        database="Projeto"
+    )
     
-    try:
-        with open('passwords.json', 'r') as json_file:
-            existing_data = json.load(json_file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        existing_data = []
+    cur = conn.cursor()
     
-    existing_data.append(data)
-    
-    with open('passwords.json', 'w') as json_file:
-        json.dump(existing_data, json_file, indent=4)
+    def InserirDados(site, utilizador, password):
+        try:
+            cur.execute("INSERT INTO dados (Site, Utilizador, Password) VALUES (%s, %s, %s)", 
+                        (site, utilizador, password))
+            conn.commit()
+            print("Inserção feita!")
+        except mariadb.Error as e:
+            print(f"Erro ao inserir: {e}")
 
-def verPasswords(site):
-    try:
-        with open('passwords.json', 'r') as json_file:
-            data = json.load(json_file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        data = []
+    def verPasswords(site):
+        try:
+            import auth
+            cur.execute("SELECT Site, Utilizador, Password FROM dados WHERE Site = %s", (site,))
+            resultados = cur.fetchall()
+            if resultados:
+                for resultado in resultados:
+                    password_decifrada = auth.decifrar_password(resultado[2])
+                    print(f"Site: {resultado[0]}, Utilizador: {resultado[1]}, Password: {password_decifrada}")
+            else:
+                print("Nenhum dado encontrado para o site fornecido.")
+        except mariadb.Error as e:
+            print(f"Erro ao buscar dados: {e}")
     
-    print("Passwords:")
-    for entry in data:
-        if entry['site'] == site:
-            print(f"Site: {entry['site']}, Username: {entry['username']}, Password: {entry['password']}")
-        if not any(entry['site'] == site for entry in data):
-            print("Não existem palavras pass para este site.")
-        
+except mariadb.Error as e:
+    print(f"Erro: {e}")
+    sys.exit(1)

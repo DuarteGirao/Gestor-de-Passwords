@@ -1,5 +1,5 @@
+import chave
 import auth, storage
-from auth import ph
 
 def MenuPrincipal():
     print("----Menu Principal----")
@@ -18,6 +18,11 @@ def MenuAdicionarPassword():
 
 def MenuVerPasswords():
     print("----Ver Passwords----")
+    master_password = input("Digite a password mestra: ")
+    if master_password != chave.master_password:
+        print("Password mestra incorreta!")
+        return None
+
     site = input("Digite o nome do site para ver as passwords: ")
     return site
 
@@ -34,10 +39,11 @@ if __name__ == "__main__":
         escolha = MenuPrincipal()
         if escolha == "1":
             site, username, password = MenuAdicionarPassword()
-            storage.pytojson(site, username, ph.hash(password))
+            storage.InserirDados(site, username, auth.cifrar_password(password))
         elif escolha == "2":
             site = MenuVerPasswords()
-            storage.verPasswords(site)
+            if site is not None:
+                storage.verPasswords(site)
         elif escolha == "3":
             MenuSair()
         else:
