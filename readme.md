@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/duartegirao/Gestor-de-Passwords/main/imagem.png" width="400">
+  <img src="https://raw.githubusercontent.com/duartegirao/Gestor-de-Passwords/main/image.png" width="400">
 </p>
 
 # 🔐 Gestor de Passwords
